@@ -1,15 +1,18 @@
 # Open Source Conversational Assistant with RAG and Ollama
 
-An open-source conversational AI assistant built with **Next.js**, **TypeScript**, and **Ollama**. It leverages **Retrieval-Augmented Generation (RAG)** using **llama3.2:3b** to provide context-aware and grounded responses—ideal for documentation search, knowledge-based assistants, and more.
+An open-source conversational AI assistant built with **Next.js**, **TypeScript**, and **Ollama**. It leverages **Retrieval-Augmented Generation (RAG)** to provide context-aware responses, making it suitable for knowledge-based assistants, documentation search, and more.
+
+---
 
 ## 🚀 Features
+- **Conversational AI** powered by [Ollama](https://ollama.ai/).  
+- **RAG (Retrieval Augmented Generation)** for grounding responses in external knowledge.  
+- **Next.js (App Router)** frontend with Tailwind styling.  
+- **Postgres integration** for storing and retrieving embeddings.  
+- **Modular components** for chat UI and base elements.  
+- **API routes** for handling chat requests and embedding generation.  
 
-- Conversational AI powered by **Ollama** and **llama3.2:3b**.
-- RAG pipeline combining document embedding retrieval using **PostgreSQL + pgvector**.
-- Frontend built with **Next.js 15**, **React 19**, and **Tailwind CSS**.
-- Type-safe development with **TypeScript**.
-- Fully modular components for UI, API routes, and utilities.
-- Example documents loader, chunking, and embedding scripts for RAG development.
+---
 
 ## 🛠️ Prerequisites
 
@@ -23,120 +26,91 @@ Before you start, ensure you have the following tools and environment set up:
 - Download and run a **llama3.2:** model variant (e.g., `1.5b`, `7b`, etc.) via Ollama:  
   ```bash
   ollama run llama3.2::7b
-````
+   ```
 
 ## 📂 Project Structure
-
 ```
 .
-├── app/
-│   ├── api/
-│   └── page.tsx
-├── components/
-│   ├── base/
-│   └── chat/
-├── lib/
-├── scripts/
-│   └── embeddings (RAG embedding generator)
-├── docs/             # Place markdown or MDX docs here for RAG
-├── package.json
-├── tsconfig.json
-├── next.config.ts
-└── ...
+├── app/                  # Next.js App Router pages & API routes
+│   ├── api/chat/         # Chat API endpoint
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Main UI
+├── components/           # Reusable UI components
+│   ├── base/             # Buttons, Inputs, Forms
+│   └── chat/             # Chat client
+├── lib/                  # Database and utility functions
+├── scripts/              # Embedding generation scripts
+├── package.json          # Dependencies
+├── tsconfig.json         # TypeScript config
+└── next.config.ts        # Next.js config
 ```
 
-## ⚙️ Installation & Setup
+---
 
-1. **Clone the repository and install dependencies:**
+## 🛠️ Installation
 
-   ```bash
-   git clone https://github.com/yourusername/conversational-assistant-rag-ollama.git
-   cd conversational-assistant-rag-ollama
-   npm install
-   ```
+### Prerequisites
+- **Node.js** ≥ 18
+- **PostgreSQL**
+- **Ollama** installed locally ([Guide](https://ollama.ai/download))
 
-2. **Set up PostgreSQL:**
+### Setup
+```bash
+# Clone repository
+git clone https://github.com/DhruvGandhi31/Open-Source-Conversational-Assistant-with-RAG-and-Ollama
+cd conversational-assistant-rag-ollama
 
-   * Install PostgreSQL and the `pgvector` extension.
-   * Create a database (e.g., `rag_db`) and enable the extension:
+# Install dependencies
+npm install
 
-     ```sql
-     CREATE DATABASE rag_db;
-     \c rag_db
-     CREATE EXTENSION IF NOT EXISTS vector;
-     ```
+# Configure environment variables
+cp .env.example .env.local
+```
 
-3. **Configure environment variables:**
+Update `.env.local` with your **Postgres credentials** and **Ollama settings**.
 
-   ```bash
-   cp .env.example .env.local
-   ```
+---
 
-   Update `.env.local` with your PostgreSQL connection details and Ollama settings.
-
-4. **Download and run a llama3.2: model via Ollama:**
-
-   ```bash
-   ollama run llama3.2::7b
-   ```
-
-   (You can choose a model appropriate for your hardware)
-
-## 📖 RAG Embeddings & Database Setup
-
-1. Place your markdown or MDX documentation into the `docs/` folder.
-
-2. Run the embeddings script to chunk documents, produce embeddings, and store them in your database:
-
-   ```bash
-   npm run embeddings
-   ```
-
-   This script will:
-
-   * Load files from `docs/`
-   * Split text into chunks
-   * Generate embeddings via Ollama or another model
-   * Store results in PostgreSQL (via `pgvector`)
-
-3. Optionally, use **pgAdmin** or `psql` to verify that vectors are populated:
-
-   ```sql
-   SELECT * FROM vectors;
-   ```
-
-## ▶️ Run the Development Server
+## ▶️ Running the Project
 
 ```bash
+# Start development server
 npm run dev
 ```
 
-Navigate to `http://localhost:3000` to test the chat interface.
+The app will be available at **http://localhost:3000**.
 
-## ⚡ Usage Workflow
+---
 
-1. Ensure PostgreSQL is running and embeddings have been generated.
-2. Confirm that Ollama is running with the llama3.2: model.
-3. Launch the dev server and use the chat UI to ask questions—RAG logic will handle document retrieval and response generation.
+## ⚡ Usage
+1. Start the **Postgres database** and ensure embeddings are generated:
+   ```bash
+   npm run generate:embeddings
+   ```
+2. Start the **Ollama model** (e.g., `llama2`, `mistral`, etc.):
+   ```bash
+   ollama run llama2
+   ```
+3. Chat with your assistant in the web UI.
 
-## 📜 Key Scripts
+---
 
-| Command              | Description                          |
-| -- |  |
-| `npm run dev`        | Start development server             |
-| `npm run build`      | Build for production                 |
-| `npm run start`      | Run production server                |
-| `npm run lint`       | Run code linter                      |
-| `npm run embeddings` | Generate document embeddings for RAG |
+## 📖 Scripts
+- `npm run dev` – Start development server  
+- `npm run build` – Build project  
+- `npm run start` – Start production server  
+- `npm run lint` – Run linter  
+- `npm run generate:embeddings` – Generate embeddings for documents  
 
-## 📄 License
+---
 
-Licensed under the [MIT License](LICENSE.md).
+## 📜 License
+This project is licensed under the terms of the [MIT License](LICENSE.md).  
+
+---
 
 ## 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch (`feature/my-feature`)
-3. Commit your changes and open a pull request
+Contributions are welcome!  
+- Fork the repo  
+- Create a new branch (`feature/your-feature`)  
+- Submit a PR  

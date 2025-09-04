@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Open Source Conversational Assistant with RAG and Ollama
 
-## Getting Started
+An open-source conversational AI assistant built with **Next.js**, **TypeScript**, and **Ollama**. It leverages **Retrieval-Augmented Generation (RAG)** to provide context-aware responses, making it suitable for knowledge-based assistants, documentation search, and more.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+- **Conversational AI** powered by [Ollama](https://ollama.ai/).  
+- **RAG (Retrieval Augmented Generation)** for grounding responses in external knowledge.  
+- **Next.js (App Router)** frontend with Tailwind styling.  
+- **Postgres integration** for storing and retrieving embeddings.  
+- **Modular components** for chat UI and base elements.  
+- **API routes** for handling chat requests and embedding generation.  
+
+---
+
+## 📂 Project Structure
+```
+.
+├── app/                  # Next.js App Router pages & API routes
+│   ├── api/chat/         # Chat API endpoint
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Main UI
+├── components/           # Reusable UI components
+│   ├── base/             # Buttons, Inputs, Forms
+│   └── chat/             # Chat client
+├── lib/                  # Database and utility functions
+├── scripts/              # Embedding generation scripts
+├── package.json          # Dependencies
+├── tsconfig.json         # TypeScript config
+└── next.config.ts        # Next.js config
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
+- **Node.js** ≥ 18
+- **PostgreSQL**
+- **Ollama** installed locally ([Guide](https://ollama.ai/download))
 
-## Learn More
+### Setup
+```bash
+# Clone repository
+git clone https://github.com/yourusername/conversational-assistant-rag-ollama.git
+cd conversational-assistant-rag-ollama
 
-To learn more about Next.js, take a look at the following resources:
+# Install dependencies
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Configure environment variables
+cp .env.example .env.local
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Update `.env.local` with your **Postgres credentials** and **Ollama settings**.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ▶️ Running the Project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Start development server
+npm run dev
+```
+
+The app will be available at **http://localhost:3000**.
+
+---
+
+## ⚡ Usage
+1. Start the **Postgres database** and ensure embeddings are generated:
+   ```bash
+   npm run generate:embeddings
+   ```
+2. Start the **Ollama model** (e.g., `llama2`, `mistral`, etc.):
+   ```bash
+   ollama run llama2
+   ```
+3. Chat with your assistant in the web UI.
+
+---
+
+## 📖 Scripts
+- `npm run dev` – Start development server  
+- `npm run build` – Build project  
+- `npm run start` – Start production server  
+- `npm run lint` – Run linter  
+- `npm run generate:embeddings` – Generate embeddings for documents  
+
+---
+
+## 📜 License
+This project is licensed under the terms of the [MIT License](LICENSE.md).  
+
+---
+
+## 🤝 Contributing
+Contributions are welcome!  
+- Fork the repo  
+- Create a new branch (`feature/your-feature`)  
+- Submit a PR  

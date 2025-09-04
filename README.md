@@ -1,9 +1,6 @@
-
 # Open Source Conversational Assistant with RAG and Ollama
 
 An open-source conversational AI assistant built with **Next.js**, **TypeScript**, and **Ollama**. It leverages **Retrieval-Augmented Generation (RAG)** using **llama3.2:3b** to provide context-aware and grounded responses—ideal for documentation search, knowledge-based assistants, and more.
-
-
 
 ## 🚀 Features
 
@@ -13,8 +10,6 @@ An open-source conversational AI assistant built with **Next.js**, **TypeScript*
 - Type-safe development with **TypeScript**.
 - Fully modular components for UI, API routes, and utilities.
 - Example documents loader, chunking, and embedding scripts for RAG development.
-
-
 
 ## 🛠️ Prerequisites
 
@@ -29,8 +24,6 @@ Before you start, ensure you have the following tools and environment set up:
   ```bash
   ollama run llama3.2::7b
 ````
-
-
 
 ## 📂 Project Structure
 
@@ -51,8 +44,6 @@ Before you start, ensure you have the following tools and environment set up:
 ├── next.config.ts
 └── ...
 ```
-
-
 
 ## ⚙️ Installation & Setup
 
@@ -91,8 +82,6 @@ Before you start, ensure you have the following tools and environment set up:
 
    (You can choose a model appropriate for your hardware)
 
-
-
 ## 📖 RAG Embeddings & Database Setup
 
 1. Place your markdown or MDX documentation into the `docs/` folder.
@@ -116,8 +105,6 @@ Before you start, ensure you have the following tools and environment set up:
    SELECT * FROM vectors;
    ```
 
-
-
 ## ▶️ Run the Development Server
 
 ```bash
@@ -126,15 +113,11 @@ npm run dev
 
 Navigate to `http://localhost:3000` to test the chat interface.
 
-
-
 ## ⚡ Usage Workflow
 
 1. Ensure PostgreSQL is running and embeddings have been generated.
 2. Confirm that Ollama is running with the llama3.2: model.
 3. Launch the dev server and use the chat UI to ask questions—RAG logic will handle document retrieval and response generation.
-
-
 
 ## 📜 Key Scripts
 
@@ -146,13 +129,9 @@ Navigate to `http://localhost:3000` to test the chat interface.
 | `npm run lint`       | Run code linter                      |
 | `npm run embeddings` | Generate document embeddings for RAG |
 
-
-
 ## 📄 License
 
 Licensed under the [MIT License](LICENSE.md).
-
-
 
 ## 🤝 Contributing
 
@@ -161,5 +140,3 @@ Contributions are welcome!
 1. Fork the repository
 2. Create a feature branch (`feature/my-feature`)
 3. Commit your changes and open a pull request
-
-

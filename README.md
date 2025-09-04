@@ -91,7 +91,7 @@ Before you start, ensure you have the following tools and environment set up:
 
    (You can choose a model appropriate for your hardware)
 
----
+
 
 ## 📖 RAG Embeddings & Database Setup
 
@@ -116,7 +116,7 @@ Before you start, ensure you have the following tools and environment set up:
    SELECT * FROM vectors;
    ```
 
----
+
 
 ## ▶️ Run the Development Server
 
@@ -126,7 +126,7 @@ npm run dev
 
 Navigate to `http://localhost:3000` to test the chat interface.
 
----
+
 
 ## ⚡ Usage Workflow
 
@@ -134,25 +134,25 @@ Navigate to `http://localhost:3000` to test the chat interface.
 2. Confirm that Ollama is running with the llama3.2: model.
 3. Launch the dev server and use the chat UI to ask questions—RAG logic will handle document retrieval and response generation.
 
----
+
 
 ## 📜 Key Scripts
 
 | Command              | Description                          |
-| -------------------- | ------------------------------------ |
+| -- |  |
 | `npm run dev`        | Start development server             |
 | `npm run build`      | Build for production                 |
 | `npm run start`      | Run production server                |
 | `npm run lint`       | Run code linter                      |
 | `npm run embeddings` | Generate document embeddings for RAG |
 
----
+
 
 ## 📄 License
 
 Licensed under the [MIT License](LICENSE.md).
 
----
+
 
 ## 🤝 Contributing
 
@@ -162,4 +162,4 @@ Contributions are welcome!
 2. Create a feature branch (`feature/my-feature`)
 3. Commit your changes and open a pull request
 
----
+

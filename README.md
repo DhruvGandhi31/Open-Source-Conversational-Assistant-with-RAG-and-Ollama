@@ -61,10 +61,23 @@ git clone https://github.com/DhruvGandhi31/Open-Source-Conversational-Assistant-
 cd conversational-assistant-rag-ollama
 
 # Install dependencies
-npm install
+npm i
 
-# Configure environment variables
-cp .env.example .env.local
+npx create-next-app@canary
+
+```
+
+I suggest you answer the few questions like this (or customize the answers to your liking):
+
+```
+Would you like to use TypeScript? **Yes**
+Would you like to use ESLint? **Yes**
+Would you like to use Tailwind CSS? **No**
+Would you like your code inside a `src/` directory? **No**
+Would you like to use App Router? (recommended) **Yes**
+Would you like to use Turbopack for `next dev`? **Yes**
+Would you like to customize the import alias (`@/*` by default)? **Yes**
+What import alias would you like configured? **@/\***
 ```
 
 Update `.env.local` with your **Postgres credentials** and **Ollama settings**.

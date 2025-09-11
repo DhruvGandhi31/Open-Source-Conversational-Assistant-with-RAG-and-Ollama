@@ -6,7 +6,7 @@ export default function Home() {
         <section className="chat-container">
             <header className="chat-header">
                 <h1>AI chatbot example</h1>
-                <p className="tagline">Local DeepSeek-R1 chatbot and RAG</p>
+                <p className="tagline">Meta's Llama 3.2 with RAG</p>
             </header>
             <main>
                 <ChatClient />

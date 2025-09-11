@@ -2,6 +2,8 @@ import { createOllama } from 'ollama-ai-provider'
 import { streamText, embed } from 'ai'
 import { type CoreMessage } from 'ai'
 import { createPool, endPool } from '@/lib/postgres'
+import dotenv from 'dotenv'
+dotenv.config()
 
 interface ChatRequest {
     messages: {
@@ -71,7 +73,7 @@ const findKnowledge = async (question: string) => {
 const getEmbedding = async (question: string): Promise<number[]> => {
 
     const ollamaProvider = createOllama({
-        baseURL: 'http://localhost:11434/api'
+        baseURL: process.env.OLLAMA_HOST
     })
 
     const embeddingModel = ollamaProvider.embedding('nomic-embed-text:latest')

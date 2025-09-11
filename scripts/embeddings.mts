@@ -7,6 +7,7 @@ import { OllamaEmbeddings, type OllamaEmbeddingsParams } from '@langchain/ollama
 import { PGVectorStore, type PGVectorStoreArgs } from '@langchain/community/vectorstores/pgvector'
 import pg, { type PoolConfig, type Pool as PoolType } from 'pg'
 import yaml from 'js-yaml'
+import 'dotenv/config'
 
 async function loadDocuments(documentsPath: string) {
 
@@ -75,24 +76,33 @@ function getEmbeddingModel() {
     const options: OllamaEmbeddingsParams = {
         // https://ollama.com/library/nomic-embed-text
         model: 'nomic-embed-text:latest',
-        //model: 'deepseek-r1:1.5b',
-        baseUrl: 'http://localhost:11434',
+        // Use the OLLAMA_HOST from .env.local, or default to the working IPv4 address
+        baseUrl: process.env.OLLAMA_HOST || 'http://127.0.0.1:11434',
     }
     const embeddings = new OllamaEmbeddings(options)
     return embeddings
 }
 
+// export function createPool(): PoolType {
+
+//     const postgresOptions: PoolConfig = {
+//         host: '127.0.0.1',
+//         port: 5432,
+//         user: 'postgres',
+//         password: '123',
+//         database: 'vector_store',
+//     }
+
+//     const pool = new pg.Pool(postgresOptions)
+
+//     return pool
+// }
+
 export function createPool(): PoolType {
-
-    const postgresOptions: PoolConfig = {
-        host: '127.0.0.1',
-        port: 5432,
-        user: 'postgres',
-        password: '123',
-        database: 'vector_store',
-    }
-
-    const pool = new pg.Pool(postgresOptions)
+    // This will automatically use the POSTGRES_URL from your .env.local file
+    const pool = new pg.Pool({
+        connectionString: process.env.POSTGRES_URL,
+    })
 
     return pool
 }

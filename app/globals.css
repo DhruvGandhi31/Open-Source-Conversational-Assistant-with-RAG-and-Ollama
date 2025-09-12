@@ -1,17 +1,21 @@
 :root {
-    --background: #f9f9fb;
-    --primary: #4a90e2;
-    /* main accent (blue) */
-    --primary-light: #e8f1fc;
+    --background: #ffece0;
+    /* light beige background */
+    --primary: #c97a40;
+    /* warm accent (terracotta brown) */
+    --primary-light: #f3e4d3;
+    /* lighter beige */
     --bot: #ffffff;
     /* bot bubble background */
-    --user: #4a90e2;
+    --user: #c97a40;
     /* user bubble background */
     --user-text: #ffffff;
-    --text: #333333;
-    --muted: #666666;
-    --border-radius: 12px;
-    --border-color: #e0e0e0;
+    --text: #3e3e3c;
+    /* main text */
+    --muted: #7a7a73;
+    /* muted gray */
+    --border-radius: 14px;
+    --border-color: #e4dfd8;
 }
 
 /* Reset */
@@ -47,6 +51,8 @@ body {
     padding: 1rem;
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 1rem;
+    background: var(--primary-light);
+    border-radius: var(--border-radius);
 }
 
 .chat-header h1 {
@@ -71,13 +77,13 @@ body {
     gap: 1rem;
 }
 
-/* Scrollbar (light subtle) */
+/* Scrollbar */
 .messages-container::-webkit-scrollbar {
     width: 8px;
 }
 
 .messages-container::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: #d6c8b8;
     border-radius: 4px;
 }
 
@@ -88,12 +94,12 @@ body {
 /* Chat bubbles */
 .message {
     max-width: 70%;
-    padding: 0.8rem 1rem;
+    padding: 0.85rem 1.1rem;
     border-radius: var(--border-radius);
-    line-height: 1.4;
+    line-height: 1.5;
     font-size: 1rem;
     word-wrap: break-word;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .message-user {
@@ -139,7 +145,7 @@ body {
 .message-input:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+    box-shadow: 0 0 0 3px rgba(201, 122, 64, 0.15);
 }
 
 /* Button */
@@ -148,7 +154,7 @@ body {
     background: var(--primary);
     border: none;
     border-radius: var(--border-radius);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: white;
     cursor: pointer;
     transition: background 0.2s ease;
@@ -158,10 +164,10 @@ body {
 }
 
 .form-button:hover {
-    background: #3a78c2;
+    background: #a65e2f;
 }
 
 .form-button:disabled {
-    background: #cccccc;
+    background: #d2c4b8;
     cursor: not-allowed;
 }

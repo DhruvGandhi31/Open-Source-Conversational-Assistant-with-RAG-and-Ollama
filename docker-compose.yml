@@ -1,18 +1,49 @@
-version: '3.8'
+# version: '3.8'
+
+# services:
+#   pgvector-db:
+#     image: ankane/pgvector:latest
+#     container_name: pgvector-db
+#     restart: unless-stopped
+#     ports:
+#     - "5433:5432"
+#     environment:
+#       POSTGRES_USER: raguser
+#       POSTGRES_PASSWORD: "1234"
+#       POSTGRES_DB: rag_db
+#     volumes:
+#       - pgvector-data:/var/lib/postgresql/data
+
+# volumes:
+#   pgvector-data:
+version: "3.9"
 
 services:
-  pgvector-db:
+  postgres:
     image: ankane/pgvector:latest
-    container_name: pgvector-db
-    restart: unless-stopped
-    ports:
-    - "5433:5432"
+    container_name: pgvector
+    restart: always
     environment:
       POSTGRES_USER: raguser
-      POSTGRES_PASSWORD: "1234"
+      POSTGRES_PASSWORD: 1234
       POSTGRES_DB: rag_db
+    ports:
+      - "5433:5432"
     volumes:
-      - pgvector-data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    container_name: my-backend
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      POSTGRES_URL: "postgresql://raguser:1234@postgres:5432/rag_db"
 
 volumes:
-  pgvector-data:
+  pg_data:

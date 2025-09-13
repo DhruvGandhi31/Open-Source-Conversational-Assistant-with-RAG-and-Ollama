@@ -7,7 +7,10 @@ const BaseButton: React.FC<BaseButtonProps> = (props) => {
     const { children, ...rest } = props
 
     return (
-        <button {...rest}>
+        <button
+            {...rest}
+            className={`base-button ${props.className ?? ''}`}
+        >
             {children}
         </button>
     )

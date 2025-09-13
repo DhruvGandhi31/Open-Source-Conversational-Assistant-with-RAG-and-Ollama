@@ -74,9 +74,7 @@ async function processChunks(chunks: Document[]) {
 
 function getEmbeddingModel() {
     const options: OllamaEmbeddingsParams = {
-        // https://ollama.com/library/nomic-embed-text
         model: 'nomic-embed-text:latest',
-        // Use the OLLAMA_HOST from .env.local, or default to the working IPv4 address
         baseUrl: process.env.OLLAMA_HOST || 'http://127.0.0.1:11434',
     }
     const embeddings = new OllamaEmbeddings(options)

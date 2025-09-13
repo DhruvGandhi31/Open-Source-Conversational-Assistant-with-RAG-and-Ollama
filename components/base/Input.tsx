@@ -5,7 +5,10 @@ export type BaseInputProps = InputHTMLAttributes<HTMLInputElement>
 const BaseInput: React.FC<BaseInputProps> = (props) => {
 
     return (
-        <input {...props} />
+        <input
+            {...props}
+            className={`base-input ${props.className ?? ''}`}
+        />
     )
 }
 

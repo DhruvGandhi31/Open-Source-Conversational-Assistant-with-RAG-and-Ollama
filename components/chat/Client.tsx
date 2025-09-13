@@ -92,15 +92,17 @@ const ChatClient: React.FC = () => {
             <div className="messages-container">
                 <div key="welcome_human" className="message message-bot">
                     <div className="message-content">
-                        <strong>AI:</strong>
-                        Hello human, how can I help you today?
+                        <strong>AI:</strong> Hello human, how can I help you today?
                     </div>
                     <div className="message-timestamp">just now</div>
                 </div>
                 {messages.length > 0 && (
                     <>
                         {messages.map(message => (
-                            <div key={message.id} className={`message ${message.role === 'user' ? 'message-user' : 'message-bot'}`}>
+                            <div
+                                key={message.id}
+                                className={`message ${message.role === 'user' ? 'message-user' : 'message-bot'}`}
+                            >
                                 <div className="message-content">
                                     <strong>{message.role === 'user' ? 'User: ' : 'AI: '}</strong>
                                     <MessageFormatter content={message.content} />
@@ -113,10 +115,26 @@ const ChatClient: React.FC = () => {
                     </>
                 )}
                 <div ref={messagesEndRef} />
-            </div >
+            </div>
+
             <Form onSubmit={handleSubmit} className="form-container">
-                <Input type="text" name="prompt" value={input} onChange={handleInputChange} placeholder="Ask me anything..." aria-label="Message input" className="message-input" />
-                <Button type="submit" className="form-button" disabled={status === 'streaming' ? true : false} aria-label="Send message">{status === 'streaming' ? '🧠' : (status === 'submitted' ? '💭' : '🤖')}</Button>
+                <Input
+                    type="text"
+                    name="prompt"
+                    value={input}
+                    onChange={handleInputChange}
+                    placeholder="Ask me anything..."
+                    aria-label="Message input"
+                    className="message-input"
+                />
+                <Button
+                    type="submit"
+                    className="form-button"
+                    disabled={status === 'streaming'}
+                    aria-label="Send message"
+                >
+                    {status === 'streaming' ? '🧠' : (status === 'submitted' ? '💭' : '🤖')}
+                </Button>
             </Form>
         </>
     )

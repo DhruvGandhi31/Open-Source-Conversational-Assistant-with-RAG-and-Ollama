@@ -1,3 +1,4 @@
+# 1
 # version: '3.8'
 
 # services:
@@ -16,34 +17,54 @@
 
 # volumes:
 #   pgvector-data:
-version: "3.9"
 
+# 2
+# version: "3.9"
+
+# services:
+#   postgres:
+#     image: ankane/pgvector:latest
+#     container_name: pgvector
+#     restart: always
+#     environment:
+#       POSTGRES_USER: raguser
+#       POSTGRES_PASSWORD: 1234
+#       POSTGRES_DB: rag_db
+#     ports:
+#       - "5433:5432"
+#     volumes:
+#       - pg_data:/var/lib/postgresql/data
+
+#   backend:
+#     build: .
+#     container_name: my-backend
+#     restart: always
+#     depends_on:
+#       - postgres
+#     ports:
+#       - "3000:3000"
+#     env_file:
+#       - .env
+#     environment:
+#       POSTGRES_URL: "postgresql://raguser:1234@postgres:5432/rag_db"
+
+# volumes:
+#   pg_data:
+
+# 3
+version: '3.9'
 services:
   postgres:
     image: ankane/pgvector:latest
-    container_name: pgvector
-    restart: always
+    container_name: rag_postgres
     environment:
-      POSTGRES_USER: raguser
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: rag_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: supersecret   # superuser password (needed to init db)
+      POSTGRES_DB: postgres
+      PGUSER: postgres
     ports:
       - "5433:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  backend:
-    build: .
-    container_name: my-backend
-    restart: always
-    depends_on:
-      - postgres
-    ports:
-      - "3000:3000"
-    env_file:
-      - .env
-    environment:
-      POSTGRES_URL: "postgresql://raguser:1234@postgres:5432/rag_db"
-
-volumes:
-  pg_data:

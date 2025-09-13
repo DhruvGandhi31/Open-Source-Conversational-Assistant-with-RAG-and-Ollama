@@ -1,4 +1,4 @@
-import { createOllama } from 'ollama-ai-provider'
+import { createOllama, ollama } from 'ollama-ai-provider'
 import { streamText } from 'ai'
 import { type CoreMessage } from 'ai'
 import { createPool, endPool } from '@/lib/postgres'
@@ -99,7 +99,7 @@ export async function POST(req: Request) {
     })
 
     // Use llama3.2:3b for generation
-    const ollamaModel = ollamaProvider('llama3.2:3b')
+    const ollamaModel = ollama('llama3.2:latest')
 
     const lastMessage = messages[messages.length - 1].content
     let knowledge = null

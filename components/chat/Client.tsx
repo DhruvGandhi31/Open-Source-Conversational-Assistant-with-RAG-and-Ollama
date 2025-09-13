@@ -8,23 +8,11 @@ import { useChat } from '@ai-sdk/react'
 import Markdown from 'react-markdown'
 
 const ChatClient: React.FC = () => {
-
-    const { messages, input, handleInputChange, handleSubmit, status } = useChat(
-        {
-            // value is in milliseconds
-            //experimental_throttle: 50,
-            //maxSteps: 3,
-            onError: (error) => {
-                console.error('useChat onError: ', error)
-            },
-            /*onFinish: (message) => {
-                console.log('useChat onFinish: ', message)
-            },
-            onResponse: (response) => {
-                console.log('useChat onResponse: ', response)
-            },*/
-        }
-    )
+    const { messages, input, handleInputChange, handleSubmit, status } = useChat({
+        onError: (error) => {
+            console.error('useChat onError: ', error)
+        },
+    })
 
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
@@ -38,13 +26,14 @@ const ChatClient: React.FC = () => {
     }, [messages])
 
     function MessageFormatter({ content }: { content: string }) {
-        if (content.includes("<think>")) {
+        if (content.includes('<think>')) {
             let parts: string[] = []
-            if (content.includes("</think>")) {
+            if (content.includes('</think>')) {
                 parts = content.split(/<think>|<\/think>/)
             } else {
                 parts = content.split(/<think>/)
             }
+
             if (parts.length >= 3) {
                 return (
                     <>
@@ -61,8 +50,7 @@ const ChatClient: React.FC = () => {
                                 <strong>Conclusion: </strong>
                                 <Markdown>{parts[2]}</Markdown>
                             </div>
-                        )
-                        }
+                        )}
                     </>
                 )
             } else if (parts.length >= 2) {
@@ -78,17 +66,17 @@ const ChatClient: React.FC = () => {
                 )
             }
         }
+
         return (
-            <>
-                <div className="message-content">
-                    <Markdown>{content}</Markdown>
-                </div>
-            </>
+            <div className="message-content">
+                <Markdown>{content}</Markdown>
+            </div>
         )
     }
 
     return (
-        <>
+        <div className="chat-container">
+            {/* Scrollable messages */}
             <div className="messages-container">
                 <div key="welcome_human" className="message message-bot">
                     <div className="message-content">
@@ -96,27 +84,30 @@ const ChatClient: React.FC = () => {
                     </div>
                     <div className="message-timestamp">just now</div>
                 </div>
-                {messages.length > 0 && (
-                    <>
-                        {messages.map(message => (
-                            <div
-                                key={message.id}
-                                className={`message ${message.role === 'user' ? 'message-user' : 'message-bot'}`}
-                            >
-                                <div className="message-content">
-                                    <strong>{message.role === 'user' ? 'User: ' : 'AI: '}</strong>
-                                    <MessageFormatter content={message.content} />
-                                </div>
-                                <div className="message-timestamp">
-                                    {message.createdAt instanceof Date ? message.createdAt.toLocaleString() : message.createdAt ?? 'just now'}
-                                </div>
+
+                {messages.length > 0 &&
+                    messages.map((message) => (
+                        <div
+                            key={message.id}
+                            className={`message ${message.role === 'user' ? 'message-user' : 'message-bot'
+                                }`}
+                        >
+                            <div className="message-content">
+                                <strong>{message.role === 'user' ? 'User: ' : 'AI: '}</strong>
+                                <MessageFormatter content={message.content} />
                             </div>
-                        ))}
-                    </>
-                )}
+                            <div className="message-timestamp">
+                                {message.createdAt instanceof Date
+                                    ? message.createdAt.toLocaleString()
+                                    : message.createdAt ?? 'just now'}
+                            </div>
+                        </div>
+                    ))}
+
                 <div ref={messagesEndRef} />
             </div>
 
+            {/* Input form pinned at bottom */}
             <Form onSubmit={handleSubmit} className="form-container">
                 <Input
                     type="text"
@@ -133,10 +124,14 @@ const ChatClient: React.FC = () => {
                     disabled={status === 'streaming'}
                     aria-label="Send message"
                 >
-                    {status === 'streaming' ? '🧠' : (status === 'submitted' ? '💭' : '🤖')}
+                    {status === 'streaming'
+                        ? '🧠'
+                        : status === 'submitted'
+                            ? '💭'
+                            : '🤖'}
                 </Button>
             </Form>
-        </>
+        </div>
     )
 }
 

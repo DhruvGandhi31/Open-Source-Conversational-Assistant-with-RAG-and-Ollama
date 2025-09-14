@@ -25,25 +25,12 @@ Before you start, ensure you have the following tools and environment set up:
 - **Ollama** installed and configured for local LLM execution  
 - Download and run a **llama3.2:** model variant (e.g., `1.5b`, `7b`, etc.) via Ollama:  
   ```bash
-  ollama run llama3.2::7b
+  ollama pull llama3.2:latest
    ```
-
-## 📂 Project Structure
-```
-.
-├── app/                  # Next.js App Router pages & API routes
-│   ├── api/chat/         # Chat API endpoint
-│   ├── layout.tsx        # Root layout
-│   └── page.tsx          # Main UI
-├── components/           # Reusable UI components
-│   ├── base/             # Buttons, Inputs, Forms
-│   └── chat/             # Chat client
-├── lib/                  # Database and utility functions
-├── scripts/              # Embedding generation scripts
-├── package.json          # Dependencies
-├── tsconfig.json         # TypeScript config
-└── next.config.ts        # Next.js config
-```
+- Download **nomic-embed-text:latest** to generate embeddings.
+  ```bash
+  ollama pull nomic-embed-text:latest
+   ```
 
 ---
 
@@ -61,7 +48,7 @@ git clone https://github.com/DhruvGandhi31/Open-Source-Conversational-Assistant-
 cd conversational-assistant-rag-ollama
 
 # Install dependencies
-npm i
+pnpm install
 
 npx create-next-app@canary
 
@@ -80,40 +67,65 @@ Would you like to customize the import alias (`@/*` by default)? **Yes**
 What import alias would you like configured? **@/\***
 ```
 
-Update `.env.local` with your **Postgres credentials** and **Ollama settings**.
+Update `.env` with your **Postgres credentials** and **Ollama settings**.
 
 ---
 
 ## ▶️ Running the Project
+Create env file and add POSTGRES_URL and OLLAMA_HOST
 
 ```bash
-# Start development server
-npm run dev
+POSTGRES_URL="postgresql://user:password@localhost:5432/db_name"
+OLLAMA_HOST="OLLAMA_HOST="http://127.0.0.1:11434""
 ```
 
-The app will be available at **http://localhost:3000**.
+Note: If you already have Postgres up and running on local you also need pgvector extension. To avoid complexity and platform dependency it is recommended to use docker container of ankane/pgvector. Run the docker-compose file.
 
----
+```bash
+ollama list
+```
 
-## ⚡ Usage
-1. Start the **Postgres database** and ensure embeddings are generated:
-   ```bash
-   npm run generate:embeddings
-   ```
-2. Start the **Ollama model** (e.g., `llama2`, `mistral`, etc.):
-   ```bash
-   ollama run llama2
-   ```
-3. Chat with your assistant in the web UI.
+```bash
+docker-compose up -d
+```
+
+```bash
+docker run -d --name pgvector -e POSTGRES_USER=user_name -e POSTGRES_PASSWORD=pswd -e POSTGRES_DB=db_name -p 5433:5432 ankane/pgvector
+```
+
+```bash
+pnpm run embeddings 
+```
+
+Note: please ensure ollama.exe and postgres container on docker running
+
+```bash
+pnpm run dev
+```
+
+The Next.js app will be available at **http://localhost:3000**.
 
 ---
 
 ## 📖 Scripts
-- `npm run dev` – Start development server  
-- `npm run build` – Build project  
-- `npm run start` – Start production server  
-- `npm run lint` – Run linter  
-- `npm run generate:embeddings` – Generate embeddings for documents  
+- `pnpm run dev` - Start development server  
+- `docker-compose up -d ` - Docker compose 
+- `ollama list` - list available ollama models
+- `ollama pull model_name` - pull ollama model
+- `ollama serve` - serve api endpoint(Not nessecary if ollama is already running)
+
+You may want to test whether the ollama api endpoint is working fine.
+Postman:
+
+Method: POST
+link: http://localhost:11434/api/generate or http://127.0.0.1:11434/api/generate
+Add Headers: Key: Content-Type | Value: application/json 
+Body raw(json):
+{
+  "model": "llama3.2",
+  "prompt": "Why software developers prefer dark theme?",
+  "stream": false
+}
 
 ---
 
